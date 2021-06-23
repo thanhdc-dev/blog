@@ -13,6 +13,11 @@
 |
 */
 
-$router->get('/', function () use ($router) {
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () use ($router) {
     return $router->app->version();
+});
+Route::group(['prefix' => 'api'], function() {
+    generator_resource('users', 'UserController');
 });
