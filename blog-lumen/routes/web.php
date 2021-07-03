@@ -19,5 +19,9 @@ Route::get('/', function () use ($router) {
     return $router->app->version();
 });
 Route::group(['prefix' => 'api'], function() {
+    /** API User */
     generator_resource('users', 'UserController');
+
+    /** API Post */
+    generator_resource('posts', 'PostController');
 });

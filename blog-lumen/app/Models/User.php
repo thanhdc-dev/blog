@@ -30,5 +30,4 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
         'password',
     ];
 
-    protected $modelClass = User::class;
 }
