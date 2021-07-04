@@ -3,22 +3,33 @@
 use Illuminate\Support\Facades\Route;
 
 if(!function_exists('generator_resource')) {
-    function generator_resource(string $prefix, string $controllerClass) {
-        Route::group(['prefix' => $prefix], function () use ($controllerClass) {
+    function generator_resource(string $prefix, string $controllerClass, array $resources = []) {
+        Route::group(['prefix' => $prefix], function () use ($controllerClass, $resources) {
+
             /** Get items */
-            Route::get('/', $controllerClass . '@index');
+            if(empty($resources) || in_array('index', $resources)){
+                Route::get('/', $controllerClass . '@index');
+            }
 
             /** Add item */
-            Route::post('/', $controllerClass . '@store');
+            if(empty($resources) || in_array('store', $resources)) {
+                Route::post('/', $controllerClass . '@store');
+            }
 
             /** Show item */
-            Route::get('{id:[0-9]+}', $controllerClass . '@show');
+            if(empty($resources) || in_array('show', $resources)) {
+                Route::get('{id:[0-9]+}', $controllerClass . '@show');
+            }
 
             /** Update item */
-            Route::put('{id:[0-9]+}', $controllerClass . '@update');
+            if(empty($resources) || in_array('update', $resources)) {
+                Route::put('{id:[0-9]+}', $controllerClass . '@update');
+            }
 
             /** Delete item */
-            Route::put('trash', $controllerClass . '@trash');
+            if(empty($resources) || in_array('trash', $resources)) {
+                Route::put('trash', $controllerClass . '@trash');
+            }
         });
     }
 }
